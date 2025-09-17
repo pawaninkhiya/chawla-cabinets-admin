@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+    --font-primary: "Sora", sans-serif;
+     --color-default-50: #F3F8F8; 
+    --color-default-100: #E0ECEC;
+    --color-default-200: #B3D1D1;
+    --color-default-300: #80B4B4;
+    --color-default-400: #4D9696;
+    --color-default-500: #385C5C;
+    /* base/default */
+    --color-default-600: #2B4646;
+    --color-default-700: #1F3030;
+    --color-default-800: #162121;
+    --color-default-900: #0D1111;
+}
+
+* {
+    font-family: var(--font-primary);
+}
+
+.scroll-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+    display: none;
+}
