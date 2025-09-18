@@ -1,9 +1,9 @@
 import api from "@services/apiClient";
 import { CATEGORIES_ENDPOINTS } from "@services/basePaths";
-import type { 
-  CategoriesResponse, 
-  CategoryPayload, 
-  CategoryResponse 
+import type {
+  CategoriesResponse,
+  CategoryPayload,
+  CategoryResponse
 } from "@interfaces/categoriesTypes";
 
 // -----------get all categories----------------
@@ -22,16 +22,21 @@ export const createCategory = async (
   return response.data;
 };
 
+export const updateCategory = async (id: string, payload: Partial<CategoryPayload>): Promise<CategoryResponse> => {
+  const response = await api.put(CATEGORIES_ENDPOINTS.UPDATE(id), payload);
+  return response.data;
+};
+
 // -----------get category options ----------------
 export const getCategoryOptions = async (): Promise<{ _id: string; categoryName: string }[]> => {
   const response = await api.get(CATEGORIES_ENDPOINTS.GET_OPTIONS);
-  return response.data.data; 
+  return response.data.data;
 };
 
 // -----------delete model----------------
 export const deleteCategory = async (id: string): Promise<any> => {
-    const response = await api.delete(CATEGORIES_ENDPOINTS.DELETE(id));
-    return response.data;
+  const response = await api.delete(CATEGORIES_ENDPOINTS.DELETE(id));
+  return response.data;
 };
 
 // // -----------get category by id----------------

@@ -1,6 +1,7 @@
 import { MdErrorOutline, MdOutlineFolderOff } from "react-icons/md";
 import { motion } from "framer-motion";
 import ActionButtons from "./ActionButtons";
+import TableSkeleton from "./TableSkeleton";
 
 export interface Column<T> {
     header: string;
@@ -47,26 +48,18 @@ const Table = <T,>({
     };
 
     if (isLoading) {
-        return (
-            <motion.div
-                {...fadeInProps}
-                className="flex flex-col h-[150px] xl:h-[300px] items-center justify-center py-10 bg-gray-100 rounded-lg shadow-sm mt-4"
-            >
-                {/* Loader can go here */}
-            </motion.div>
-        );
+        return <TableSkeleton columns={columns} isSerial={isSerial} />;
     }
 
     if (isError) {
         return (
             <motion.div
                 {...fadeInProps}
-                className="flex flex-col h-[150px] xl:h-[300px] items-center justify-center py-10 bg-red-50 text-red-600 rounded-lg shadow-sm mt-4"
+                className="flex flex-col h-[150px] xl:h-[200px] items-center justify-center py-10 bg-red-50 text-gray-600 rounded-lg shadow-sm mt-4"
             >
-                <MdErrorOutline size={40} className="mb-2" />
-                <p className="text-sm md:text-lg font-semibold">Something went wrong</p>
-                <p className="text-xs sm:text-sm text-red-400">
-                    {errorMessage || "We couldn't load the data. Please try again later."}
+                <MdErrorOutline size={40} className="mb-2 text-red-400" />
+                <p className="text-sm md:text-lg font-semibold text-red-500">
+                    {errorMessage || "Something went wrong"}
                 </p>
             </motion.div>
         );
@@ -76,7 +69,7 @@ const Table = <T,>({
         return (
             <motion.div
                 {...fadeInProps}
-                className="flex flex-col h-[150px] xl:h-[300px] items-center justify-center py-10 bg-gray-50 text-gray-600 rounded-lg shadow-sm mt-4"
+                className="flex flex-col h-[150px] xl:h-[200px] items-center justify-center py-10 bg-default-50 text-default-600 rounded-lg shadow-sm mt-4"
             >
                 <MdOutlineFolderOff size={40} className="mb-2" />
                 <p className="text-sm md:text-lg font-semibold">{noDataMessage}</p>

@@ -26,5 +26,5 @@ export interface ModelVerityResponse extends ApiResponse<Model> {
 export interface ModelPayload {
     name: string;
     description?: string;
-    categoryId: string;
+    categoryId?: string;
 }

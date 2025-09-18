@@ -16,7 +16,6 @@ const isTokenExpired = (token: string) => {
 const ProtectedRoute = ({ isProtected }: { isProtected: boolean }) => {
     const { user, isLoading } = useAuthContext();
     const token = localStorage.getItem("token");
-    console.log(user,token)
     if (isLoading) return <div>Loading...</div>;
 
     const tokenValid = token && !isTokenExpired(token);

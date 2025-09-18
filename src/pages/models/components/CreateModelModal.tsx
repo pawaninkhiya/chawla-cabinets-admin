@@ -1,24 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@components/modals/Modal";
 import Input from "@components/ui/Input";
 import Textarea from "@components/ui/Textarea";
 import Button from "@components/ui/Button";
 import { useGetCategoryOptionsQuery } from "@services/apis/categories/hooks";
 import CustomSelect from "@components/ui/CustomSelect";
+import type { Model } from "@interfaces/modelsTypes";
 
-interface CreateModelModalModalProps {
+interface CreateModelModalProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: { name: string; description?: string; categoryId: string }) => void;
   isPending: boolean;
+  defaultValues?: Model; // ✅ added for edit support
 }
 
-const CreateModelModalModal: React.FC<CreateModelModalModalProps> = ({ open, onClose, onSubmit, isPending }) => {
+const CreateModelModal: React.FC<CreateModelModalProps> = ({
+  open,
+  onClose,
+  onSubmit,
+  isPending,
+  defaultValues,
+}) => {
   const { data: categories } = useGetCategoryOptionsQuery();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
+
+  useEffect(() => {
+    if (defaultValues) {
+      setName(defaultValues.name || "");
+      setDescription(defaultValues.description || "");
+      setCategoryId(typeof defaultValues.categoryId === "string" ? defaultValues.categoryId : defaultValues.categoryId?._id || "")
+    } else {
+      setName("");
+      setDescription("");
+      setCategoryId("");
+    }
+  }, [defaultValues, open]);
 
   const categoryOptions =
     categories?.map((cat: { _id: string; categoryName: string }) => ({
@@ -31,22 +51,17 @@ const CreateModelModalModal: React.FC<CreateModelModalModalProps> = ({ open, onC
     if (!name.trim() || !categoryId) return;
 
     onSubmit({ name, description, categoryId });
-
-    // reset form
-    setName("");
-    setDescription("");
-    setCategoryId("");
-    onClose();
+    onClose()
   };
 
   return (
     <Modal open={open} onClose={onClose} width="max-w-2xl">
       <h2 className="text-lg font-medium text-white text-center mb-4 shadow p-2 bg-gradient-to-r from-default-500 to-default-400 px-5 rounded">
-        Create Model
+        {defaultValues ? "Edit Model" : "Create Model"}
       </h2>
 
-      <form onSubmit={handleSubmit} >
-        <div className=" grid grid-cols-1 md:grid-cols-2 gap-2">
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <Input
             label="Model Name"
             placeholder="Enter model name"
@@ -54,6 +69,7 @@ const CreateModelModalModal: React.FC<CreateModelModalModalProps> = ({ open, onC
             onChange={(e) => setName(e.target.value)}
             required
           />
+
           <CustomSelect
             id="categoryId"
             label="Select Category"
@@ -62,8 +78,8 @@ const CreateModelModalModal: React.FC<CreateModelModalModalProps> = ({ open, onC
             setFieldValue={(val) => setCategoryId(val)}
             required
           />
-
         </div>
+
         <Textarea
           label="Description"
           placeholder="Enter description..."
@@ -71,6 +87,7 @@ const CreateModelModalModal: React.FC<CreateModelModalModalProps> = ({ open, onC
           onChange={(e) => setDescription(e.target.value)}
           helperText="Write a short model description"
         />
+
         <div className="flex justify-end gap-3 pt-2">
           <Button
             type="button"
@@ -78,11 +95,16 @@ const CreateModelModalModal: React.FC<CreateModelModalModalProps> = ({ open, onC
             onClick={onClose}
             bgColor="bg-gray-400 hover:bg-gray-500"
           />
-          <Button type="submit" text="Submit" isLoading={isPending} loadingText="Creating..." />
+          <Button
+            type="submit"
+            text={defaultValues ? "Update" : "Submit"}
+            isLoading={isPending}
+            loadingText={defaultValues ? "Updating..." : "Creating..."}
+          />
         </div>
       </form>
     </Modal>
   );
 };
 
-export default CreateModelModalModal;
+export default CreateModelModal;

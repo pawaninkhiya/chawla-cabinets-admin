@@ -6,7 +6,7 @@ import Dashboard from "@pages/dashboard/Dashboard";
 
 // Categories
 import Categories from "@pages/categories/Categories"; // Outlet parent
-import CategoriesList from "@pages/categories/pages/List";
+import CategoriesList from "@pages/categories/pages/CategoriesList";
 import ProtectedRoute from "./ProtectedRoute";
 
 // Models

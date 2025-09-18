@@ -53,7 +53,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { data, isLoading } = useQuery({
         queryKey: ["userProfile"],
         queryFn: async () => {
-            console.log(token)
             if (!token) throw new Error("Token not found");
             const decoded = decodeToken(token);
             if (!decoded) throw new Error("Invalid token");
@@ -86,7 +85,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
             console.error("Login error:", err);
         },
     });
-     console.log(loginMutation.data?.data || data?.data,)
     // ------------- Context Value -------------
     const contextValue = useMemo<AuthContextType>(
         () => ({

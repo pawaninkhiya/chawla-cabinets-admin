@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createModel, deleteModel, getAllModels } from "./models";
+import { createModel, deleteModel, getAllModels, updateModel } from "./models";
+import type { ModelPayload } from "@interfaces/modelsTypes";
 
 
 export const useGetAllModelsQuery = (params?: { search?: string; page?: number; limit?: number }) => {
@@ -19,6 +20,21 @@ export const useCreateModelsMutation = () => {
             queryClient.invalidateQueries({ queryKey: ["models"] })
         },
     });
+    
+};
+
+// ---------------- UPDATE Category ----------------
+
+// ---------------- UPDATE MODEL ----------------
+export const useUpdateModelMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, payload }: { id: string; payload: Partial<ModelPayload> }) =>
+      updateModel(id, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["models"] });
+    },
+  });
 };
 
 // ---------------- DELETE MODEL ----------------

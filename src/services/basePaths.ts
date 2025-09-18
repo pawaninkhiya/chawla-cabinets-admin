@@ -8,8 +8,9 @@ export const USERS_ENDPOINTS = {
 
 // ------------------ Categories Endpoints ------------------
 export const CATEGORIES_ENDPOINTS = {
-    CREATE: "/categories",
+    CREATE: "/categories/create",
     GET_ALL: "/categories",
+    UPDATE: (id: string) => `/categories/${id}`,
     GET_OPTIONS: "/categories/options",
     DELETE: (id: string) => `/categories/${id}`,
 };
@@ -17,9 +18,9 @@ export const CATEGORIES_ENDPOINTS = {
 export const MODEL_ENDPOINTS = {
     CREATE: "/modelVerities/create",
     GET_ALL: "/modelVerities",
+    UPDATE: (id: string) => `/modelVerities/${id}`,
     DELETE: (id: string) => `/modelVerities/${id}`,
 };
 
 // GET_BY_ID: (id: string) => `/categories/${id}`,
-// UPDATE: (id: string) => `/categories/${id}`,
 // DELETE: (id: string) => `/categories/${id}`,

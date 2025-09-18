@@ -9,9 +9,10 @@ import { useUIContext } from "@hooks/context/useUIContext";
 // import { useAuthContext } from "@hooks/context/useAuthContext";
 import { type SidebarItem, sidebarMenu } from "./sidebarItem";
 import { BiMenuAltLeft } from "react-icons/bi";
+import { useAuthContext } from "@hooks/context/useAuthContext";
 
 const Sidebar = () => {
-    // const { logout } = useAuthContext();
+    const { logout } = useAuthContext();
     const { isSidebarOpen, toggleSidebar, setSidebarOpen } = useUIContext();
     const location = useLocation();
 
@@ -179,7 +180,7 @@ const Sidebar = () => {
                 {/* Logout */}
                 <div className="mt-auto pt-4 border-t border-gray-100 p-5">
                     <button
-                        // onClick={logout}
+                        onClick={logout}
                         className="flex items-center gap-3 py-3 px-4 text-sm rounded w-full transition-all duration-200 cursor-pointer text-gray-600 hover:bg-red-50 hover:text-red-600 font-medium"
                     >
                         <FaSignOutAlt size={16} />

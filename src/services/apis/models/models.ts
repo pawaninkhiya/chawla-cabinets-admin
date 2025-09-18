@@ -18,6 +18,17 @@ export const createModel = async (payload: ModelPayload): Promise<any> => {
     return response.data;
 };
 
+
+export const updateModel = async (
+  id: string,
+  payload: Partial<ModelPayload>
+): Promise<any> => {
+  const response = await api.put(MODEL_ENDPOINTS.UPDATE(id), payload);
+  return response.data;
+};
+
+
+
 // -----------delete model----------------
 export const deleteModel = async (id: string): Promise<any> => {
     const response = await api.delete(MODEL_ENDPOINTS.DELETE(id));

@@ -10,7 +10,7 @@ export const customSelectStyles = (error?: boolean, success?: boolean) => ({
       ? "0 0 0 2px #FECACA"
       : success
         ? "0 0 0 2px #BBF7D0" 
-        : "0 0 0 2px #80B4B4"; 
+        : "0 0 0 2px #80B4B4"; // default-300
 
     return {
       ...provided,
