@@ -38,6 +38,7 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({
         e.preventDefault();
         if (!categoryName.trim()) return;
         onSubmit({ categoryName, description });
+        onClose()
     };
 
     return (

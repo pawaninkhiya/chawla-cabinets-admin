@@ -51,7 +51,7 @@ const CreateModelModal: React.FC<CreateModelModalProps> = ({
     if (!name.trim() || !categoryId) return;
 
     onSubmit({ name, description, categoryId });
-    onClose()
+    onClose();
   };
 
   return (

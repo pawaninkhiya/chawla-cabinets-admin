@@ -13,7 +13,7 @@ const Categories = () => {
     // }
 
     return (
-        <>
+        <div className="p-4">
             <PageHeader
                 title="Categories"
                 breadcrumbItems={[
@@ -22,7 +22,7 @@ const Categories = () => {
                 ]}
             />
             <Outlet />
-        </>
+        </div>
     );
 };
 

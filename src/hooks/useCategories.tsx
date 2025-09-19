@@ -21,6 +21,7 @@ export const useCategories = (search: string, page: number, limit: number) => {
             if (editData) {
                 await updateCategory({ id: editData._id, payload: formData });
                 toast.success("Category updated successfully!");
+                
             } else {
                 await createCategory(formData);
                 toast.success("Category created successfully!");

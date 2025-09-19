@@ -1,5 +1,6 @@
 import Navbar from "@components/Navbar";
 import Sidebar from "@components/Sidebar";
+import { useAuthContext } from "@hooks/context/useAuthContext";
 import { useUIContext } from "@hooks/context/useUIContext";
 import { type ReactNode, Suspense, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -10,6 +11,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
     const { isSidebarOpen } = useUIContext();
+    const { user } = useAuthContext();
     const location = useLocation();
     const hideComponent = location.pathname.startsWith("/login");
     useEffect(() => {
@@ -19,14 +21,14 @@ const Layout = ({ children }: LayoutProps) => {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <div className="flex-1 h-screen font-primary">
-                {!hideComponent && <Sidebar />}
+                {!hideComponent && user && <Sidebar />}
                 <div
                     className={`flex flex-col flex-1 h-screen transition-all duration-300 
-                    ${isSidebarOpen && !hideComponent ? "md:ml-64 ml-0" : "ml-0"}`}
+                    ${isSidebarOpen && !hideComponent && user ? "md:ml-64 ml-0" : "ml-0"}`}
                 >
-                    {!hideComponent && <Navbar />}
+                    {!hideComponent && user && <Navbar />}
                     <div
-                        className={` overflow-y-auto p-4  scroll-hidden h-full bg-default-50  transition-all duration-300 
+                        className={` overflow-y-auto scroll-hidden h-full bg-default-50  transition-all duration-300 
                         `}
                     >
                         {children}

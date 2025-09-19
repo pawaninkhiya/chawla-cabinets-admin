@@ -7,7 +7,7 @@ const Models = () => {
 
 
     return (
-        <>
+        <div className="p-4">
             <PageHeader
                 title="Models"
                 breadcrumbItems={[
@@ -16,7 +16,7 @@ const Models = () => {
                 ]}
             />
             <Outlet />
-        </>
+        </div>
     );
 };
 
