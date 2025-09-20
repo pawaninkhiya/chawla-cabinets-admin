@@ -7,15 +7,15 @@ import type { ModelPayload } from "@interfaces/modelsTypes";
 
 // -----------get all models----------------
 export const getAllModels = async (params?: { search?: string; page?: number; limit?: number; }): Promise<CategoriesResponse> => {
-    const response = await api.get(MODEL_ENDPOINTS.GET_ALL, { params });
-    return response.data;
+  const response = await api.get(MODEL_ENDPOINTS.GET_ALL, { params });
+  return response.data;
 };
 
 
 // -----------create model----------------
 export const createModel = async (payload: ModelPayload): Promise<any> => {
-    const response = await api.post(MODEL_ENDPOINTS.CREATE, payload);
-    return response.data;
+  const response = await api.post(MODEL_ENDPOINTS.CREATE, payload);
+  return response.data;
 };
 
 
@@ -27,10 +27,17 @@ export const updateModel = async (
   return response.data;
 };
 
+// -----------get models options ----------------
+export const getModelsOptions = async (categoryId?: string): Promise<{ _id: string; name: string }[]> => {
+  const response = await api.get(MODEL_ENDPOINTS.GET_OPTIONS, {
+    params: { categoryId }, // send categoryId as query param if provided
+  });
+  return response.data.data;
+};
 
 
 // -----------delete model----------------
 export const deleteModel = async (id: string): Promise<any> => {
-    const response = await api.delete(MODEL_ENDPOINTS.DELETE(id));
-    return response.data;
+  const response = await api.delete(MODEL_ENDPOINTS.DELETE(id));
+  return response.data;
 };

@@ -23,7 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
             <div className="flex-1 h-screen font-primary">
                 {!hideComponent && user && <Sidebar />}
                 <div
-                    className={`flex flex-col flex-1 h-screen transition-all duration-300 
+                    className={`flex flex-col flex-1 h-screen  
                     ${isSidebarOpen && !hideComponent && user ? "md:ml-64 ml-0" : "ml-0"}`}
                 >
                     {!hideComponent && user && <Navbar />}

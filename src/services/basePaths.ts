@@ -19,8 +19,14 @@ export const MODEL_ENDPOINTS = {
     CREATE: "/modelVerities/create",
     GET_ALL: "/modelVerities",
     UPDATE: (id: string) => `/modelVerities/${id}`,
+    GET_OPTIONS: "/modelVerities/options",
     DELETE: (id: string) => `/modelVerities/${id}`,
+
 };
 
-// GET_BY_ID: (id: string) => `/categories/${id}`,
-// DELETE: (id: string) => `/categories/${id}`,
+
+// ------------------ Products Endpoints ------------------
+export const PRODUCT_ENDPOINTS = {
+    CREATE: "/products",
+};
+

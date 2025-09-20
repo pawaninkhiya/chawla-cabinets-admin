@@ -15,9 +15,9 @@ import ModelsList from "@pages/models/pages/ModelsList";
 // import ModelAdd from "@pages/models/pages/Add";
 
 // Products
-// import Products from "@pages/products/Products"; // Outlet parent
-// import ProductsList from "@pages/products/pages/List";
-// import ProductAdd from "@pages/products/pages/Add";
+import Products from "@pages/products/Products"; // Outlet parent
+import ProductsList from "@pages/products/pages/ProductsList";
+import ProductAdd from "@pages/products/pages/ProductAdd";
 
 const AppRoutes = () => {
 
@@ -42,10 +42,10 @@ const AppRoutes = () => {
                 </Route>
 
                 {/* Products nested */}
-                {/* <Route path="/products" element={<Products />}>
+                <Route path="/products" element={<Products />}>
                     <Route index element={<ProductsList />} />
                     <Route path="add" element={<ProductAdd />} />
-                </Route> */}
+                </Route>
 
                 {/* Fallback */}
 
