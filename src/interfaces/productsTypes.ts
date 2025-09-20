@@ -1,4 +1,3 @@
-import type { ApiResponse } from "./commonTypes";
 
 export interface ProductColor {
   name: string;
