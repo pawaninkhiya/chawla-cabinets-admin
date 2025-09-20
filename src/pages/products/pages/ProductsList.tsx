@@ -1,8 +1,69 @@
+import { useState } from "react";
+import Pagination from "@components/Pagination";
+import Table from "@components/Table";
+import { useGetAllProductsQuery } from "@services/apis/products/hooks";
+import { getErrorMessage } from "@utils/getErrorMessage";
+
+import type { Column } from "@components/Table";
+import type { Product } from "@interfaces/productsTypes";
 
 const ProductsList = () => {
-    return (
-        <div>ProductsList</div>
-    )
-}
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
 
-export default ProductsList
+    const { data, isLoading, error } = useGetAllProductsQuery({
+        page: currentPage,
+        limit: itemsPerPage,
+    });
+
+    return (
+        <div className="p-4 bg-white rounded-lg shadow space-y-4">
+            <Table
+                data={data?.products}
+                columns={columns}
+                isSerial
+                onRowClick={(row) => console.log("Clicked row:", row)}
+                isLoading={isLoading}
+                errorMessage={getErrorMessage(error ?? null)}
+                getRowId={(row) => row._id}
+
+            />
+
+            {/* Pagination */}
+            {data?.pagination && (
+                <Pagination
+                    data={data.products}
+                    currentPage={data.pagination.page}
+                    itemsPerPage={data.pagination.limit}
+                    totalPages={data.pagination.totalPages}
+                    isBackendPaging
+                    onPageChange={(page) => setCurrentPage(page)}
+                    onLimitChange={(limit) => {
+                        setItemsPerPage(limit);
+                        setCurrentPage(1);
+                    }}
+                    totalItems={data.pagination.total}
+                />
+            )}
+        </div>
+    );
+};
+
+export default ProductsList;
+const columns: Column<Product>[] = [
+  { header: "Image", accessor: "cardImage", cell: (row) => (
+      <img
+        src={row.cardImage}
+        alt={row.name}
+        className="w-12 h-12 object-cover rounded"
+      />
+    )
+  },
+  { header: "Name", accessor: "name" },
+  { header: "Description", accessor: "description", cell: (row) => row.description || "N/A" },
+  { header: "Category", accessor: "categoryId", cell: (row) => row.categoryId?.categoryName || "—" },
+  { header: "Model", accessor: "modelId", cell: (row) => row.modelId?.name || "—" },
+  { header: "Price", accessor: "price", cell: (row) => `₹${row.price}` },
+  { header: "MRP", accessor: "mrp", cell: (row) => `₹${row.mrp}` },
+  { header: "Number of Doors", accessor: "numberOfDoors" },
+];

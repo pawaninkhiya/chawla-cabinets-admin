@@ -28,5 +28,6 @@ export const MODEL_ENDPOINTS = {
 // ------------------ Products Endpoints ------------------
 export const PRODUCT_ENDPOINTS = {
     CREATE: "/products",
+    GET_ALL: "/products",
 };
 

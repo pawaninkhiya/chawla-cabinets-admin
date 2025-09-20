@@ -8,6 +8,8 @@ import { useGetCategoryOptionsQuery } from "@services/apis/categories/hooks";
 import { useGetModelOptionsQuery } from "@services/apis/models/hooks";
 import { validateForm } from "../components/ValidateForm";
 import { useCreateProductMutation } from "@services/apis/products/hooks";
+import toast from "react-hot-toast";
+import { getErrorMessage } from "@utils/getErrorMessage";
 
 // Validation error interface
 interface ValidationErrors {
@@ -62,7 +64,7 @@ const ProductAdd = () => {
 
     const handleSubmit = async () => {
         if (!validateForm(formData, setErrors)) return;
-         console.log(formData)
+        console.log(formData)
         // ✅ Create FormData for file + JSON fields
         const payload = new FormData();
 
@@ -95,7 +97,7 @@ const ProductAdd = () => {
                 mrp: color.mrp || 0,
                 available: color.available
             }));
-            
+
             payload.append("colors", JSON.stringify(colorsForJson));
             formData.colors.forEach((color, index) => {
                 if (color.images) {
@@ -110,8 +112,28 @@ const ProductAdd = () => {
 
         try {
             await mutateAsync(payload);
+
+            // ✅ Reset form after successful submission
+            setFormData({
+                name: "",
+                modelId: "",
+                categoryId: "",
+                description: "",
+                numberOfDoors: 1,
+                colorOptionsCount: 0,
+                price: 0,
+                mrp: 0,
+                material: "Steel",
+                warranty: "5 Years",
+                paintType: "Powder Coating",
+                cardImage: "",
+                colors: [],
+            });
+            setErrors({});
+            toast.success("Product Created Succussfully!")
         } catch (err) {
             console.error("Error creating product:", err);
+            toast.error(getErrorMessage(err))
         }
     };
 
@@ -182,18 +204,18 @@ const ProductAdd = () => {
         if (files.length === 0) return;
 
         const updatedColors = [...formData.colors!];
-        
+
         // Initialize images array if it doesn't exist
         if (!updatedColors[colorIndex].images) {
             updatedColors[colorIndex].images = [];
         }
-        
+
         // Add the files directly (not as base64)
         updatedColors[colorIndex].images = [
             ...updatedColors[colorIndex].images!,
             ...files
         ];
-        
+
         setFormData((prev) => ({ ...prev, colors: updatedColors }));
 
         if (errors[`colorImages-${colorIndex}`]) {
@@ -618,7 +640,7 @@ const ProductAdd = () => {
                     )}
                 </div>
             </div>
-            
+
             {/* Form Buttons */}
             <div className="flex justify-end gap-3 pt-6 border-t border-gray-200">
                 <Button
