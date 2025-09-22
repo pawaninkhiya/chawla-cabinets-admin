@@ -6,11 +6,12 @@ import { getErrorMessage } from "@utils/getErrorMessage";
 
 import type { Column } from "@components/Table";
 import type { Product } from "@interfaces/productsTypes";
+import { useNavigate } from "react-router-dom";
 
 const ProductsList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
-
+    const navigate = useNavigate();
     const { data, isLoading, error } = useGetAllProductsQuery({
         page: currentPage,
         limit: itemsPerPage,
@@ -22,7 +23,7 @@ const ProductsList = () => {
                 data={data?.products}
                 columns={columns}
                 isSerial
-                onRowClick={(row) => console.log("Clicked row:", row)}
+                onRowClick={(row) => navigate(`/products/${row._id}`)}
                 isLoading={isLoading}
                 errorMessage={getErrorMessage(error ?? null)}
                 getRowId={(row) => row._id}
@@ -51,19 +52,20 @@ const ProductsList = () => {
 
 export default ProductsList;
 const columns: Column<Product>[] = [
-  { header: "Image", accessor: "cardImage", cell: (row) => (
-      <img
-        src={row.cardImage}
-        alt={row.name}
-        className="w-12 h-12 object-cover rounded"
-      />
-    )
-  },
-  { header: "Name", accessor: "name" },
-  { header: "Description", accessor: "description", cell: (row) => row.description || "N/A" },
-  { header: "Category", accessor: "categoryId", cell: (row) => row.categoryId?.categoryName || "—" },
-  { header: "Model", accessor: "modelId", cell: (row) => row.modelId?.name || "—" },
-  { header: "Price", accessor: "price", cell: (row) => `₹${row.price}` },
-  { header: "MRP", accessor: "mrp", cell: (row) => `₹${row.mrp}` },
-  { header: "Number of Doors", accessor: "numberOfDoors" },
+    {
+        header: "Image", accessor: "cardImage", cell: (row) => (
+            <img
+                src={row.cardImage}
+                alt={row.name}
+                className="w-12 h-12 object-cover rounded"
+            />
+        )
+    },
+    { header: "Name", accessor: "name" },
+    { header: "Description", accessor: "description", cell: (row) => row.description || "N/A" },
+    { header: "Category", accessor: "categoryId", cell: (row) => row.categoryId?.categoryName || "—" },
+    { header: "Model", accessor: "modelId", cell: (row) => row.modelId?.name || "—" },
+    { header: "Price", accessor: "price", cell: (row) => `₹${row.price}` },
+    { header: "MRP", accessor: "mrp", cell: (row) => `₹${row.mrp}` },
+    { header: "Number of Doors", accessor: "numberOfDoors" },
 ];

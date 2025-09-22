@@ -1,3 +1,4 @@
+import type { Pagination } from "./commonTypes";
 
 export interface ProductColor {
   name: string;
@@ -9,15 +10,15 @@ export interface ProductColor {
   available?: boolean;
 }
 export interface ValidationErrors {
-    name?: string;
-    modelId?: string;
-    categoryId?: string;
-    description?: string;
-    price?: string;
-    mrp?: string;
-    cardImage?: string;
-    colors?: string;
-    [key: string]: string | undefined;
+  name?: string;
+  modelId?: string;
+  categoryId?: string;
+  description?: string;
+  price?: string;
+  mrp?: string;
+  cardImage?: string;
+  colors?: string;
+  [key: string]: string | undefined;
 }
 
 export interface ProductFormData {
@@ -49,11 +50,11 @@ export interface ProductsParams {
 export interface ColorOption {
   name: string;
   body: string;
-  door: string;
-  images: string[];
-  price: number;
-  mrp: number;
-  available: boolean;
+  door?: string;
+  images?: string[];
+  price?: number;
+  mrp?: number;
+  available?: boolean;
 }
 
 // ---------------- MODEL ----------------
@@ -68,13 +69,19 @@ export interface Category {
   categoryName: string;
 }
 
+// ---------------- USER (createdBy) ----------------
+export interface User {
+  _id: string;
+  name: string;
+}
+
 // ---------------- PRODUCT ----------------
 export interface Product {
   _id: string;
   name: string;
   modelId: Model;
   categoryId: Category;
-  createdBy: string;
+  createdBy: User;
   description: string;
   numberOfDoors: number;
   colorOptionsCount: number;
@@ -91,13 +98,13 @@ export interface Product {
   __v: number;
 }
 
-// ---------------- PAGINATION ----------------
-export interface Pagination {
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
+// ---------------- SINGLE PRODUCT RESPONSE ----------------
+export interface SingleProductResponse {
+  success: boolean;
+  message: string;
+  product: Product;
 }
+
 
 // ---------------- RESPONSE ----------------
 export interface ProductsResponse {

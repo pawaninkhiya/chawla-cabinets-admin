@@ -29,5 +29,6 @@ export const MODEL_ENDPOINTS = {
 export const PRODUCT_ENDPOINTS = {
     CREATE: "/products",
     GET_ALL: "/products",
+    GET_BY_ID: (id: string) => `/products/${id}`,
 };
 

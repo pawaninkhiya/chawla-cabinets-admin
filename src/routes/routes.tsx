@@ -18,6 +18,7 @@ import ModelsList from "@pages/models/pages/ModelsList";
 import Products from "@pages/products/Products"; // Outlet parent
 import ProductsList from "@pages/products/pages/ProductsList";
 import ProductAdd from "@pages/products/pages/ProductAdd";
+import ProductDetail from "@pages/products/pages/ProductDetail";
 
 const AppRoutes = () => {
 
@@ -45,6 +46,7 @@ const AppRoutes = () => {
                 <Route path="/products" element={<Products />}>
                     <Route index element={<ProductsList />} />
                     <Route path="add" element={<ProductAdd />} />
+                        <Route path=":id" element={<ProductDetail />} /> {/* Detail page */}
                 </Route>
 
                 {/* Fallback */}

@@ -9,7 +9,9 @@ const Products = () => {
     let lastBreadcrumb = "All Products";
 
     if (lastPath === "add") {
-        lastBreadcrumb = "Add Category";
+        lastBreadcrumb = "Add Product";
+    } else if (lastPath && lastPath !== "products") {
+        lastBreadcrumb = "Product Details";
     }
 
     return (
@@ -17,7 +19,7 @@ const Products = () => {
             <PageHeader
                 title="Products"
                 breadcrumbItems={[
-                    { label: "Products", path: "/Products" },
+                    { label: "Products", path: "/products" },
                     { label: lastBreadcrumb, active: true },
                 ]}
             />
