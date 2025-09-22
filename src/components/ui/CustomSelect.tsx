@@ -7,7 +7,6 @@ interface Option {
     label: string;
     value: string;
 }
-
 interface CustomSelectProps {
     id: string;
     label?: string;
@@ -17,6 +16,8 @@ interface CustomSelectProps {
     fullWidth?: boolean;
     isDisabled?: boolean;
     required?: boolean;
+    error?: boolean;
+    success?: boolean;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -28,14 +29,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     fullWidth = true,
     isDisabled = false,
     required = false,
+    error,
+    success,
 }) => {
     const currentValue = options.find((opt) => opt.value === value);
 
     const handleChange = (opt: Option | null) => {
-        const newValue = opt?.value || "";
-        if (setFieldValue) {
-            setFieldValue(newValue);
-        }
+        setFieldValue?.(opt?.value || "");
     };
 
     return (
@@ -55,7 +55,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                 options={options}
                 value={currentValue || null}
                 onChange={handleChange}
-                styles={customSelectStyles()}
+                styles={customSelectStyles(error, success)}
                 menuPortalTarget={document.body}
                 placeholder={`Select ${label || "option"}`}
                 isClearable
@@ -66,5 +66,4 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         </div>
     );
 };
-
-export default CustomSelect;
+export default CustomSelect

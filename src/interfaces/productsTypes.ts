@@ -8,6 +8,17 @@ export interface ProductColor {
   mrp?: number;
   available?: boolean;
 }
+export interface ValidationErrors {
+    name?: string;
+    modelId?: string;
+    categoryId?: string;
+    description?: string;
+    price?: string;
+    mrp?: string;
+    cardImage?: string;
+    colors?: string;
+    [key: string]: string | undefined;
+}
 
 export interface ProductFormData {
   name: string;
