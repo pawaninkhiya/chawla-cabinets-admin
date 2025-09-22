@@ -30,5 +30,7 @@ export const PRODUCT_ENDPOINTS = {
     CREATE: "/products",
     GET_ALL: "/products",
     GET_BY_ID: (id: string) => `/products/${id}`,
+    UPDATE_COLOR: (productId: string, colorId: string) => `/products/${productId}/colors/${colorId}`,
+    ADD_COLOR: (productId: string) => `/products/${productId}/colors`, // new endpoint
 };
 

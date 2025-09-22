@@ -62,7 +62,7 @@ const columns: Column<Product>[] = [
         )
     },
     { header: "Name", accessor: "name" },
-    { header: "Description", accessor: "description", cell: (row) => row.description || "N/A" },
+    { header: "Description", accessor: "description", cell: (row) => <div className=" max-w-64 truncate"><span className="truncate">{row.description}</span> || "N/A"</div> },
     { header: "Category", accessor: "categoryId", cell: (row) => row.categoryId?.categoryName || "—" },
     { header: "Model", accessor: "modelId", cell: (row) => row.modelId?.name || "—" },
     { header: "Price", accessor: "price", cell: (row) => `₹${row.price}` },

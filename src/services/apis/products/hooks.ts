@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createProduct, getAllProducts, getProductById } from "./products";
+import { addProductColorOption, createProduct, getAllProducts, getProductById, updateProductColorOption } from "./products";
 import type { ProductsParams } from "@interfaces/productsTypes";
 
 // Create product
@@ -18,5 +18,24 @@ export const useGetProductByIdQuery = (id: string) => {
     queryKey: ["product", id],
     queryFn: () => getProductById(id),
     enabled: !!id,
+  });
+};
+
+
+export const useUpdateProductColorOptionMutation = () => {
+  return useMutation({
+     mutationFn: ({ productId, colorId, payload,
+    }: {
+      productId: string;
+      colorId: string;
+      payload: FormData;
+    }) => updateProductColorOption(productId, colorId, payload),
+  });
+}
+
+export const useAddProductColorOptionMutation = () => {
+  return useMutation({
+    mutationFn: ({ productId, payload }: { productId: string; payload: FormData }) =>
+      addProductColorOption(productId, payload),
   });
 };
