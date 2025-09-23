@@ -23,7 +23,23 @@ export const getProductById = async (id: string) => {
 };
 
 
-export const updateProductColorOption = async (productId: string,colorId: string,payload: FormData): Promise<SingleProductResponse> => {
+// Add new color option
+export const addProductColorOption = async (productId: string, payload: FormData): Promise<SingleProductResponse> => {
+    const response = await api.post(
+        PRODUCT_ENDPOINTS.ADD_COLOR(productId),
+        payload,
+        { headers: { "Content-Type": "multipart/form-data" } }
+    );
+    return response.data;
+};
+
+// Delete product
+export const deleteProduct = async (id: string): Promise<void> => {
+    await api.delete(PRODUCT_ENDPOINTS.DELETE(id));
+};
+
+// Update color option (fields, add/remove images)
+export const updateProductColorOption = async (productId: string, colorId: string, payload: FormData): Promise<SingleProductResponse> => {
     const response = await api.put(
         PRODUCT_ENDPOINTS.UPDATE_COLOR(productId, colorId),
         payload,
@@ -32,14 +48,12 @@ export const updateProductColorOption = async (productId: string,colorId: string
     return response.data;
 };
 
-export const addProductColorOption = async (
-  productId: string,
-  payload: FormData
-): Promise<SingleProductResponse> => {
-  const response = await api.post(
-    PRODUCT_ENDPOINTS.ADD_COLOR(productId),
-    payload,
-    { headers: { "Content-Type": "multipart/form-data" } }
-  );
-  return response.data;
+// Update color images order
+export const updateProductColorImagesOrder = async (productId: string, colorId: string, newOrder: string[]): Promise<SingleProductResponse> => {
+    const response = await api.put(
+        PRODUCT_ENDPOINTS.UPDATE_COLOR_IMAGES_ORDER(productId, colorId),
+        { newOrder }
+    );
+    return response.data;
 };
+

@@ -1,6 +1,16 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { addProductColorOption, createProduct, getAllProducts, getProductById, updateProductColorOption } from "./products";
+import {
+  addProductColorOption,
+  createProduct,
+  getAllProducts,
+  getProductById,
+  updateProductColorOption,
+  updateProductColorImagesOrder,
+  deleteProduct
+} from "./products";
 import type { ProductsParams } from "@interfaces/productsTypes";
+
+// ------------------ Product Hooks ------------------
 
 // Create product
 export const useCreateProductMutation = () => {
@@ -21,21 +31,35 @@ export const useGetProductByIdQuery = (id: string) => {
   });
 };
 
-
-export const useUpdateProductColorOptionMutation = () => {
+// Delete product
+export const useDeleteProductMutation = () => {
   return useMutation({
-     mutationFn: ({ productId, colorId, payload,
-    }: {
-      productId: string;
-      colorId: string;
-      payload: FormData;
-    }) => updateProductColorOption(productId, colorId, payload),
+    mutationFn: (id: string) => deleteProduct(id),
   });
-}
+};
 
+// ------------------ Product Color Hooks ------------------
+
+// Add new color option
 export const useAddProductColorOptionMutation = () => {
   return useMutation({
     mutationFn: ({ productId, payload }: { productId: string; payload: FormData }) =>
       addProductColorOption(productId, payload),
+  });
+};
+
+// Update color option (fields, add/remove images)
+export const useUpdateProductColorOptionMutation = () => {
+  return useMutation({
+    mutationFn: ({ productId, colorId, payload }: { productId: string; colorId: string; payload: FormData }) =>
+      updateProductColorOption(productId, colorId, payload),
+  });
+};
+
+// Update color images order
+export const useUpdateProductColorImagesOrderMutation = () => {
+  return useMutation({
+    mutationFn: ({ productId, colorId, newOrder }: { productId: string; colorId: string; newOrder: string[] }) =>
+      updateProductColorImagesOrder(productId, colorId, newOrder),
   });
 };
