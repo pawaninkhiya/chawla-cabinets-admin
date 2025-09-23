@@ -6,7 +6,8 @@ import {
   getProductById,
   updateProductColorOption,
   updateProductColorImagesOrder,
-  deleteProduct
+  deleteProduct,
+  updateProductApi
 } from "./products";
 import type { ProductsParams } from "@interfaces/productsTypes";
 
@@ -30,6 +31,13 @@ export const useGetProductByIdQuery = (id: string) => {
     enabled: !!id,
   });
 };
+
+// Update product 
+export const useUpdateProductMutation = () =>
+    useMutation({
+        mutationFn: ({ id, payload }: { id: string; payload: Partial<any> }) =>
+            updateProductApi(id, payload),
+    });
 
 // Delete product
 export const useDeleteProductMutation = () => {

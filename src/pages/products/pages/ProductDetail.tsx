@@ -10,6 +10,7 @@ import ProductDetailsSection from "../components/detail/ProductDetailsSection";
 import ProductPricing from "../components/detail/ProductPricing";
 import ProductCreatedBy from "../components/detail/ProductCreatedBy";
 
+
 const ProductDetail = () => {
     const { id } = useParams<{ id: string }>();
     const { data, isLoading, error,refetch } = useGetProductByIdQuery(id ?? "");
@@ -53,9 +54,6 @@ const ProductDetail = () => {
             </div>
         );
 
-    const selectedColorPrice = product.colors && product.colors[selectedColorIndex]?.price;
-    const selectedColorMRP = product.colors && product.colors[selectedColorIndex]?.mrp;
-
     return (
         <div className="w-full">
             <div className="flex items-center justify-between mb-6">
@@ -81,10 +79,10 @@ const ProductDetail = () => {
                     </div>
 
                     <div className="md:w-1/2 border-l border-gray-200 bg-gray-50 p-8 relative">
-                        <ProductDetailsSection product={product} />
+                        <ProductDetailsSection product={product} refetch={refetch} />
                         <ProductPricing
-                            selectedColorPrice={selectedColorPrice}
-                            selectedColorMRP={selectedColorMRP}
+                            selectedColorPrice={product?.price}
+                            selectedColorMRP={product?.mrp}
                             product={product}
                         />
                         <ProductCreatedBy product={product} />

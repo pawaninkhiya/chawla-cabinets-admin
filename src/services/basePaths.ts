@@ -30,6 +30,7 @@ export const PRODUCT_ENDPOINTS = {
     CREATE: "/products",
     GET_ALL: "/products",
     GET_BY_ID: (id: string) => `/products/${id}`,
+     UPDATE: (id: string) => `/products/${id}`,
     DELETE: (id: string) => `/products/${id}`,
     // Color option endpoints
     ADD_COLOR: (productId: string) => `/products/${productId}/colors`,

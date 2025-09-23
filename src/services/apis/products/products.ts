@@ -22,7 +22,11 @@ export const getProductById = async (id: string) => {
     return response.data;
 };
 
-
+// Update product (new)
+export const updateProductApi = async (id: string, payload: Partial<any>): Promise<SingleProductResponse> => {
+    const response = await api.put(PRODUCT_ENDPOINTS.UPDATE(id), payload);
+    return response.data;
+};
 // Add new color option
 export const addProductColorOption = async (productId: string, payload: FormData): Promise<SingleProductResponse> => {
     const response = await api.post(
